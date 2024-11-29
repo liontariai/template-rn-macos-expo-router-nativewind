@@ -1,0 +1,15 @@
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+extern NSNotificationName const TemplateProjectDidInitializeNotification;
+
+extern NSNotificationName const TemplateProjectWillInitializeReactNativeNotification;
+extern NSNotificationName const TemplateProjectDidInitializeReactNativeNotification;
+extern NSNotificationName const TemplateProjectDidRegisterAppsNotification;
+
+extern NSNotificationName const TemplateProjectSceneDidOpenURLNotification;
+
+extern NSNotificationName const ReactInstanceDidLoadBundle;
+
+NS_ASSUME_NONNULL_END

@@ -1,0 +1,27 @@
+diff --git a/ios/ExpoLinking.podspec b/ios/ExpoLinking.podspec
+index a050d58d5cbdd7e23b35a1e0e05612e2ce17bfd9..e6161194561853f5ab1e08c6c67246ffcc72d340 100644
+--- a/ios/ExpoLinking.podspec
++++ b/ios/ExpoLinking.podspec
+@@ -12,7 +12,8 @@ Pod::Spec.new do |s|
+   s.homepage       = package['homepage']
+   s.platforms      = {
+     :ios => '15.1',
+-    :tvos => '15.1'
++    :tvos => '15.1',
++    :osx => '12.0'
+   }
+   s.source         = { git: 'https://github.com/expo/expo.git' }
+   s.static_framework = true
+diff --git a/ios/LinkingAppDelegateSubscriber.swift b/ios/LinkingAppDelegateSubscriber.swift
+index a9f8bf3012ddc8859a6761f487c2e253a04eaaa0..0d0bf38ecd431e8341a39b628e3d960338d8729a 100644
+--- a/ios/LinkingAppDelegateSubscriber.swift
++++ b/ios/LinkingAppDelegateSubscriber.swift
+@@ -1,7 +1,7 @@
+ import ExpoModulesCore
+ 
+ public class LinkingAppDelegateSubscriber: ExpoAppDelegateSubscriber {
+-  public func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
++  public func application(_ app: UIApplication, open url: URL, options: [String: Any] = [:]) -> Bool {
+     ExpoLinkingRegistry.shared.initialURL = url
+     NotificationCenter.default.post(name: onURLReceivedNotification, object: self, userInfo: ["url": url])
+     return true

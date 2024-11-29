@@ -1,0 +1,13 @@
+{
+    "name": "TemplateProject",
+    "displayName": "TemplateProject",
+    "components": [
+        {
+            "appKey": "main",
+            "displayName": "TemplateProject"
+        }
+    ],
+    "resources": {
+        "macos": ["dist/assets", "dist/main.macos.jsbundle"]
+    }
+}

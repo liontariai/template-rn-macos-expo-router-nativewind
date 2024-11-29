@@ -1,0 +1,89 @@
+diff --git a/build/layouts/StackClient.d.ts b/build/layouts/StackClient.d.ts
+index a9d4465b1a77513d29b2b10b8f129a07e4acb3d9..1b8cec665960d976b7cac7082f23a9bda0703531 100644
+--- a/build/layouts/StackClient.d.ts
++++ b/build/layouts/StackClient.d.ts
+@@ -1,7 +1,7 @@
+ /// <reference types="react" />
+ import { ParamListBase, StackNavigationState } from '@react-navigation/native';
+-import { NativeStackNavigationEventMap, NativeStackNavigationOptions } from '@react-navigation/native-stack';
+-export declare const Stack: import("react").ForwardRefExoticComponent<Omit<Omit<import("@react-navigation/native-stack/lib/typescript/commonjs/src/types").NativeStackNavigatorProps, "children" | "initialRouteName" | "id" | "screenOptions" | "layout" | "screenListeners" | "screenLayout" | "UNSTABLE_getStateForRouteNamesChange"> & import("@react-navigation/native").DefaultRouterOptions<string> & {
++import { NativeStackNavigationEventMap, NativeStackNavigationOptions } from '@react-navigation/stack';
++export declare const Stack: import("react").ForwardRefExoticComponent<Omit<Omit<import("@react-navigation/stack/lib/typescript/commonjs/src/types").StackNavigatorProps, "children" | "initialRouteName" | "id" | "screenOptions" | "layout" | "screenListeners" | "screenLayout" | "UNSTABLE_getStateForRouteNamesChange"> & import("@react-navigation/native").DefaultRouterOptions<string> & {
+     children: import("react").ReactNode;
+     layout?: ((props: {
+         state: StackNavigationState<ParamListBase>;
+@@ -20,7 +20,7 @@ export declare const Stack: import("react").ForwardRefExoticComponent<Omit<Omit<
+         beforeRemove: import("@react-navigation/native").EventListenerCallback<NativeStackNavigationEventMap & import("@react-navigation/native").EventMapCore<StackNavigationState<ParamListBase>>, "beforeRemove", true>;
+     }> | ((props: {
+         route: import("@react-navigation/native").RouteProp<ParamListBase, string>;
+-        navigation: import("@react-navigation/native-stack").NativeStackNavigationProp<ParamListBase, string, undefined>;
++        navigation: import("@react-navigation/stack").StackNavigationProp<ParamListBase, string, undefined>;
+     }) => Partial<{
+         transitionStart: import("@react-navigation/native").EventListenerCallback<NativeStackNavigationEventMap & import("@react-navigation/native").EventMapCore<StackNavigationState<ParamListBase>>, "transitionStart", unknown>;
+         transitionEnd: import("@react-navigation/native").EventListenerCallback<NativeStackNavigationEventMap & import("@react-navigation/native").EventMapCore<StackNavigationState<ParamListBase>>, "transitionEnd", unknown>;
+@@ -33,12 +33,12 @@ export declare const Stack: import("react").ForwardRefExoticComponent<Omit<Omit<
+     }>) | undefined;
+     screenOptions?: NativeStackNavigationOptions | ((props: {
+         route: import("@react-navigation/native").RouteProp<ParamListBase, string>;
+-        navigation: import("@react-navigation/native-stack").NativeStackNavigationProp<ParamListBase, string, undefined>;
++        navigation: import("@react-navigation/stack").StackNavigationProp<ParamListBase, string, undefined>;
+         theme: ReactNavigation.Theme;
+     }) => NativeStackNavigationOptions) | undefined;
+     screenLayout?: ((props: {
+         route: import("@react-navigation/native").RouteProp<ParamListBase, string>;
+-        navigation: import("@react-navigation/native-stack").NativeStackNavigationProp<ParamListBase, string, undefined>;
++        navigation: import("@react-navigation/stack").StackNavigationProp<ParamListBase, string, undefined>;
+         theme: ReactNavigation.Theme;
+         children: import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+     }) => import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>) | undefined;
+@@ -61,7 +61,7 @@ export declare const Stack: import("react").ForwardRefExoticComponent<Omit<Omit<
+     }>> | undefined) | undefined;
+ } & {
+     id?: undefined;
+-}, "children"> & Partial<Pick<Omit<import("@react-navigation/native-stack/lib/typescript/commonjs/src/types").NativeStackNavigatorProps, "children" | "initialRouteName" | "id" | "screenOptions" | "layout" | "screenListeners" | "screenLayout" | "UNSTABLE_getStateForRouteNamesChange"> & import("@react-navigation/native").DefaultRouterOptions<string> & {
++}, "children"> & Partial<Pick<Omit<import("@react-navigation/stack/lib/typescript/commonjs/src/types").StackNavigatorProps, "children" | "initialRouteName" | "id" | "screenOptions" | "layout" | "screenListeners" | "screenLayout" | "UNSTABLE_getStateForRouteNamesChange"> & import("@react-navigation/native").DefaultRouterOptions<string> & {
+     children: import("react").ReactNode;
+     layout?: ((props: {
+         state: StackNavigationState<ParamListBase>;
+@@ -80,7 +80,7 @@ export declare const Stack: import("react").ForwardRefExoticComponent<Omit<Omit<
+         beforeRemove: import("@react-navigation/native").EventListenerCallback<NativeStackNavigationEventMap & import("@react-navigation/native").EventMapCore<StackNavigationState<ParamListBase>>, "beforeRemove", true>;
+     }> | ((props: {
+         route: import("@react-navigation/native").RouteProp<ParamListBase, string>;
+-        navigation: import("@react-navigation/native-stack").NativeStackNavigationProp<ParamListBase, string, undefined>;
++        navigation: import("@react-navigation/stack").StackNavigationProp<ParamListBase, string, undefined>;
+     }) => Partial<{
+         transitionStart: import("@react-navigation/native").EventListenerCallback<NativeStackNavigationEventMap & import("@react-navigation/native").EventMapCore<StackNavigationState<ParamListBase>>, "transitionStart", unknown>;
+         transitionEnd: import("@react-navigation/native").EventListenerCallback<NativeStackNavigationEventMap & import("@react-navigation/native").EventMapCore<StackNavigationState<ParamListBase>>, "transitionEnd", unknown>;
+@@ -93,12 +93,12 @@ export declare const Stack: import("react").ForwardRefExoticComponent<Omit<Omit<
+     }>) | undefined;
+     screenOptions?: NativeStackNavigationOptions | ((props: {
+         route: import("@react-navigation/native").RouteProp<ParamListBase, string>;
+-        navigation: import("@react-navigation/native-stack").NativeStackNavigationProp<ParamListBase, string, undefined>;
++        navigation: import("@react-navigation/stack").StackNavigationProp<ParamListBase, string, undefined>;
+         theme: ReactNavigation.Theme;
+     }) => NativeStackNavigationOptions) | undefined;
+     screenLayout?: ((props: {
+         route: import("@react-navigation/native").RouteProp<ParamListBase, string>;
+-        navigation: import("@react-navigation/native-stack").NativeStackNavigationProp<ParamListBase, string, undefined>;
++        navigation: import("@react-navigation/stack").StackNavigationProp<ParamListBase, string, undefined>;
+         theme: ReactNavigation.Theme;
+         children: import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+     }) => import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>) | undefined;
+diff --git a/build/layouts/StackClient.js b/build/layouts/StackClient.js
+index 640721b5742cdf0d1f77dff59446211614aff7a9..389230dc1ccc3568793c62c139788efc4341913b 100644
+--- a/build/layouts/StackClient.js
++++ b/build/layouts/StackClient.js
+@@ -2,9 +2,9 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.Stack = void 0;
+-const native_stack_1 = require("@react-navigation/native-stack");
++const native_stack_1 = require("@react-navigation/stack");
+ const withLayoutContext_1 = require("./withLayoutContext");
+-const NativeStackNavigator = (0, native_stack_1.createNativeStackNavigator)().Navigator;
+-exports.Stack = (0, withLayoutContext_1.withLayoutContext)(NativeStackNavigator);
++const StackNavigator = (0, native_stack_1.createStackNavigator)().Navigator;
++exports.Stack = (0, withLayoutContext_1.withLayoutContext)(StackNavigator);
+ exports.default = exports.Stack;
+ //# sourceMappingURL=StackClient.js.map
+\ No newline at end of file

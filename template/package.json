@@ -1,0 +1,91 @@
+{
+    "name": "TemplateProject",
+    "module": "index.js",
+    "version": "1.0.0",
+    "author": {
+        "name": "liontariai",
+        "email": "github@liontari.ai"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/liontariai/template-rn-macos-expo-router-nativewind.git"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/liontariai/template-rn-macos-expo-router-nativewind",
+    "description": "A template for a React Native macOS app using Expo Router and NativeWind.",
+    "devDependencies": {
+        "@types/jest": "^29.5.12",
+        "@types/react": "^18.2.6",
+        "@types/react-test-renderer": "^18.0.0",
+        "@types/react-native-vector-icons": "^6.4.18",
+        "babel-jest": "^29.6.3",
+        "@babel/core": "^7.25.2",
+        "@babel/runtime": "^7.25.0",
+        "@babel/preset-env": "^7.25.3",
+        "@rnx-kit/metro-config": "^2.0.0",
+        "@react-native/babel-preset": "0.76.0",
+        "@react-native/eslint-config": "0.76.0",
+        "@react-native/metro-config": "0.76.0",
+        "@react-native/typescript-config": "0.76.0",
+        "@react-native-community/cli-platform-ios": "15.1.2",
+        "react-test-renderer": "18.3.1",
+        "jest": "^29.6.3",
+        "jest-expo": "~52.0.2",
+        "eslint": "^8.19.0",
+        "prettier": "^3.3.3",
+        "ts-node": "^10.9.2",
+        "typescript": "5.0.4"
+    },
+    "dependencies": {
+        "@expo/vector-icons": "~14.0.2",
+        "@react-navigation/stack": "~7.0.5",
+        "@react-navigation/native": "~7.0.4",
+        "@react-native-community/cli": "~15.1.2",
+        "@react-native-community/blur": "~4.4.1",
+        "expo": "52.0.11",
+        "expo-asset": "11.0.1",
+        "expo-constants": "17.0.3",
+        "expo-file-system": "18.0.4",
+        "expo-font": "13.0.1",
+        "expo-keep-awake": "14.0.1",
+        "expo-modules-autolinking": "2.0.2",
+        "expo-modules-core": "2.0.6",
+        "expo-router": "4.0.6",
+        "expo-linking": "7.0.2",
+        "expo-system-ui": "4.0.1",
+        "expo-status-bar": "2.0.0",
+        "expo-web-browser": "14.0.0",
+        "expo-splash-screen": "0.29.11",
+        "expo-build-properties": "0.13.1",
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-native": "0.76.0",
+        "react-native-web": "~0.19.10",
+        "react-native-macos": "0.76.0",
+        "react-native-windows": "0.76.0",
+        "react-native-reanimated": "~3.16.1",
+        "react-native-vector-icons": "~10.2.0",
+        "react-native-gesture-handler": "~2.20.2",
+        "react-native-safe-area-context": "4.12.0",
+        "react-native-static-safe-area-insets": "~2.2.0",
+        "tailwindcss": "^3.4.14",
+        "nativewind": "^4.1.21"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "prettier": {
+        "tabWidth": 4
+    },
+    "defaultPlatformPackages": {
+        "macos": "react-native-macos"
+    },
+    "patchedDependencies": {
+        "expo-modules-core@2.0.6": "patches/expo-modules-core@2.0.6.patch",
+        "react-native-macos@0.76.0": "patches/react-native-macos@0.76.0.patch",
+        "expo-file-system@18.0.4": "patches/expo-file-system@18.0.4.patch",
+        "expo-linking@7.0.2": "patches/expo-linking@7.0.2.patch",
+        "expo-asset@11.0.1": "patches/expo-asset@11.0.1.patch",
+        "expo-router@4.0.6": "patches/expo-router@4.0.6.patch"
+    }
+}
