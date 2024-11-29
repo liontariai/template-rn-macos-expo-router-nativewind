@@ -1,0 +1,310 @@
+diff --git a/ios/Core/ExpoBridgeModule.h b/ios/Core/ExpoBridgeModule.h
+index 067e470457e7bea0982980ca678fd45ae6b8fa71..3a6a87947823b8e1daee389bdefb59bf146c8d00 100644
+--- a/ios/Core/ExpoBridgeModule.h
++++ b/ios/Core/ExpoBridgeModule.h
+@@ -1,6 +1,6 @@
+ // Copyright 2024-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ #import <ExpoModulesCore/EXNativeModulesProxy.h>
+ #import <ExpoModulesCore/EXModuleRegistry.h>
+ 
+diff --git a/ios/EXAppDefines.m b/ios/EXAppDefines.m
+index 87c1651b14414838eeb6a135fa449498e6656872..e12e3359d0a61dcfb8b41c3fca25030487e9dd0c 100644
+--- a/ios/EXAppDefines.m
++++ b/ios/EXAppDefines.m
+@@ -1,7 +1,7 @@
+ // Copyright 2016-present 650 Industries. All rights reserved.
+ 
+ #import <ExpoModulesCore/EXAppDefines.h>
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ @implementation EXAppDefines
+ 
+diff --git a/ios/EXLegacyExpoViewProtocol.h b/ios/EXLegacyExpoViewProtocol.h
+index 00aacdb07728091814ba65fd0c3bdd0472bef293..236faefbf237e849a8e41dcdede68bcf7b95f637 100644
+--- a/ios/EXLegacyExpoViewProtocol.h
++++ b/ios/EXLegacyExpoViewProtocol.h
+@@ -2,6 +2,8 @@
+ 
+ #import <ExpoModulesCore/EXModuleRegistry.h>
+ 
++NS_ASSUME_NONNULL_BEGIN
++
+ /**
+  The protocol required for the Objective-C views to be initialized with the legacy module registry.
+  - ToDo: Remove once all views are migrated to the new API and Swift.
+@@ -11,3 +13,5 @@
+ - (instancetype)initWithModuleRegistry:(nullable EXModuleRegistry *)moduleRegistry;
+ 
+ @end
++
++NS_ASSUME_NONNULL_END
+diff --git a/ios/Fabric/ExpoFabricViewObjC.h b/ios/Fabric/ExpoFabricViewObjC.h
+index 64f7e32a10d08d4cc0c11dbf2a52a002464da64e..137ddcf36cc9cd81bb5d36ebdad9bb224ba678bf 100644
+--- a/ios/Fabric/ExpoFabricViewObjC.h
++++ b/ios/Fabric/ExpoFabricViewObjC.h
+@@ -5,7 +5,7 @@
+ #if !TARGET_OS_OSX
+ #import <UIKit/UIKit.h>
+ #endif // !TARGET_OS_OSX
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ #ifdef __cplusplus
+ 
+diff --git a/ios/Fabric/ExpoFabricViewObjC.mm b/ios/Fabric/ExpoFabricViewObjC.mm
+index 2eacddf87436a0996cce0b2bf696ce5c5783d342..6833b28b5591aa34cafd7ef0db25f83e259912cc 100644
+--- a/ios/Fabric/ExpoFabricViewObjC.mm
++++ b/ios/Fabric/ExpoFabricViewObjC.mm
+@@ -10,7 +10,7 @@
+ #import <ExpoModulesCore/ExpoViewComponentDescriptor.h>
+ #import <ExpoModulesCore/Swift.h>
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ #import <string.h>
+ 
+diff --git a/ios/Interfaces/FileSystem/EXFileSystemInterface.h b/ios/Interfaces/FileSystem/EXFileSystemInterface.h
+index fca4649b40d98652842c5f60b613c2b4813cb021..baca3d658c9293103054b4ffe91ab7f465988d4e 100644
+--- a/ios/Interfaces/FileSystem/EXFileSystemInterface.h
++++ b/ios/Interfaces/FileSystem/EXFileSystemInterface.h
+@@ -2,6 +2,8 @@
+ 
+ #import <Foundation/Foundation.h>
+ 
++NS_ASSUME_NONNULL_BEGIN
++
+ typedef NS_OPTIONS(unsigned int, EXFileSystemPermissionFlags) {
+   EXFileSystemPermissionNone = 0,
+   EXFileSystemPermissionRead = 1 << 1,
+@@ -21,3 +23,6 @@ typedef NS_OPTIONS(unsigned int, EXFileSystemPermissionFlags) {
+ - (BOOL)ensureDirExistsWithPath:(NSString *)path;
+ 
+ @end
++
++
++NS_ASSUME_NONNULL_END
+diff --git a/ios/JSI/EXJSIConversions.h b/ios/JSI/EXJSIConversions.h
+index 37f5fd6c0d84ca1eb68af52494aa5471d1b5fcd9..a025bc480c6f738b5f4094c4b7bdf84448b2c694 100644
+--- a/ios/JSI/EXJSIConversions.h
++++ b/ios/JSI/EXJSIConversions.h
+@@ -5,7 +5,7 @@
+ #import <Foundation/Foundation.h>
+ 
+ #import <jsi/jsi.h>
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ using namespace facebook;
+ using namespace react;
+diff --git a/ios/JSI/EXJSIInstaller.h b/ios/JSI/EXJSIInstaller.h
+index b26eb1ca3fb65f75213d32b3f9377db9c51e526c..0af67cb6d4c9cf8d732046993b0c1130ad2cd392 100644
+--- a/ios/JSI/EXJSIInstaller.h
++++ b/ios/JSI/EXJSIInstaller.h
+@@ -1,6 +1,8 @@
+ // Copyright 2018-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
++
++NS_ASSUME_NONNULL_BEGIN
+ 
+ // Swift classes need forward-declaration in the headers.
+ @class EXAppContext;
+@@ -54,3 +56,5 @@ extern NSString * _Nonnull const EXGlobalCoreObjectPropertyName;
+ + (void)installNativeModuleClass:(nonnull EXRuntime *)runtime;
+ 
+ @end
++
++NS_ASSUME_NONNULL_END
+diff --git a/ios/JSI/EXJSIUtils.h b/ios/JSI/EXJSIUtils.h
+index 69785d1a127d7a1e6c0e4a4cc465602bcd19d7ca..2526d7bc87679c73b03dc8ae0dc936e7b2ecf8e4 100644
+--- a/ios/JSI/EXJSIUtils.h
++++ b/ios/JSI/EXJSIUtils.h
+@@ -5,8 +5,7 @@
+ #import <functional>
+ 
+ #import <jsi/jsi.h>
+-#import <React/RCTBridgeModule.h>
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ #import <ReactCommon/TurboModuleUtils.h>
+ #import <ExpoModulesCore/ObjectDeallocator.h>
+ 
+diff --git a/ios/JSI/EXJSIUtils.mm b/ios/JSI/EXJSIUtils.mm
+index 7175b425c22361098bc536acb9833e6af215af4b..e73e49d90028d4fdbc6b8379fef73bdaa9fb3525 100644
+--- a/ios/JSI/EXJSIUtils.mm
++++ b/ios/JSI/EXJSIUtils.mm
+@@ -2,7 +2,7 @@
+ 
+ #import <sstream>
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ #import <ExpoModulesCore/EXJSIConversions.h>
+ #import <ExpoModulesCore/EXJSIUtils.h>
+ #import <ExpoModulesCore/JSIUtils.h>
+diff --git a/ios/JSI/EXJavaScriptRuntime.h b/ios/JSI/EXJavaScriptRuntime.h
+index 57047ce3adf36f02cd63ce6947a27d10298c20b8..da90d40f6fc283274fad24561e557d617539eed3 100644
+--- a/ios/JSI/EXJavaScriptRuntime.h
++++ b/ios/JSI/EXJavaScriptRuntime.h
+@@ -3,7 +3,7 @@
+ #import <Foundation/Foundation.h>
+ #import <ExpoModulesCore/EXJavaScriptValue.h>
+ #import <ExpoModulesCore/EXJavaScriptObject.h>
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ #ifdef __cplusplus
+ 
+diff --git a/ios/Legacy/EXBridgeModule.h b/ios/Legacy/EXBridgeModule.h
+index c720d911b9e0c97dd8c7583c9157c9130f613998..22da3087c732dfd807444d8d159b651a42892823 100644
+--- a/ios/Legacy/EXBridgeModule.h
++++ b/ios/Legacy/EXBridgeModule.h
+@@ -1,6 +1,6 @@
+ // Copyright 2018-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ // Escape hatch for modules that both have to depend on React Native
+ // and want to be exported as an internal universal module.
+diff --git a/ios/Legacy/ModuleRegistryAdapter/EXModuleRegistryAdapter.h b/ios/Legacy/ModuleRegistryAdapter/EXModuleRegistryAdapter.h
+index 516c8bee8502e5864f284acf79849f318947cfd6..f11f79052cdedb38444dc8eab49f7af15a229036 100644
+--- a/ios/Legacy/ModuleRegistryAdapter/EXModuleRegistryAdapter.h
++++ b/ios/Legacy/ModuleRegistryAdapter/EXModuleRegistryAdapter.h
+@@ -1,6 +1,6 @@
+ // Copyright 2018-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ #import <ExpoModulesCore/EXModuleRegistryProvider.h>
+ 
+ // An "adapter" over module registry, for given RCTBridge and NSString
+diff --git a/ios/Legacy/ModuleRegistryAdapter/EXModuleRegistryHolderReactModule.h b/ios/Legacy/ModuleRegistryAdapter/EXModuleRegistryHolderReactModule.h
+index 7ced47a4b3504fab4b7c61f8a9bf01b5b44ce93b..c07f9725a532da20da02ab871f6eb7c4ecc75469 100644
+--- a/ios/Legacy/ModuleRegistryAdapter/EXModuleRegistryHolderReactModule.h
++++ b/ios/Legacy/ModuleRegistryAdapter/EXModuleRegistryHolderReactModule.h
+@@ -1,6 +1,6 @@
+ // Copyright 2018-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ #import <ExpoModulesCore/EXModuleRegistry.h>
+ 
+diff --git a/ios/Legacy/NativeModulesProxy/EXNativeModulesProxy.h b/ios/Legacy/NativeModulesProxy/EXNativeModulesProxy.h
+index c65d952649fe897d7765ca769a83aea4c1219340..dcf4f7ea34188dce9c00c42d39f43233ab6d5a50 100644
+--- a/ios/Legacy/NativeModulesProxy/EXNativeModulesProxy.h
++++ b/ios/Legacy/NativeModulesProxy/EXNativeModulesProxy.h
+@@ -1,10 +1,12 @@
+ // Copyright 2018-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ #import <ExpoModulesCore/EXInternalModule.h>
+ #import <ExpoModulesCore/EXModuleRegistry.h>
+ 
++NS_ASSUME_NONNULL_BEGIN
++
+ // A convenience class, which acts as a store for the native modules proxy config
+ 
+ NS_SWIFT_NAME(ModulesProxyConfig)
+@@ -35,3 +37,5 @@ NS_SWIFT_NAME(LegacyNativeModulesProxy)
+ - (void)callMethod:(NSString *)moduleName methodNameOrKey:(id)methodNameOrKey arguments:(NSArray *)arguments resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject;
+ 
+ @end
++
++NS_ASSUME_NONNULL_END
+diff --git a/ios/Legacy/NativeModulesProxy/EXNativeModulesProxy.mm b/ios/Legacy/NativeModulesProxy/EXNativeModulesProxy.mm
+index be784862d3095bff7ea94ba63465cc46fabbe977..1c00d04955156225a68584063f68bcc9b05d88ac 100644
+--- a/ios/Legacy/NativeModulesProxy/EXNativeModulesProxy.mm
++++ b/ios/Legacy/NativeModulesProxy/EXNativeModulesProxy.mm
+@@ -2,7 +2,7 @@
+ 
+ #import <objc/runtime.h>
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ #import <React/RCTComponentViewFactory.h> // Allows non-umbrella since it's coming from React-RCTFabric
+ 
+ #import <jsi/jsi.h>
+diff --git a/ios/Legacy/Services/EXReactLogHandler.m b/ios/Legacy/Services/EXReactLogHandler.m
+index bd176e5d0eb9c4927cb46126c62a507e852e2f54..1fe33caf49dde0bca9df80c1fe86f94e3cff9169 100644
+--- a/ios/Legacy/Services/EXReactLogHandler.m
++++ b/ios/Legacy/Services/EXReactLogHandler.m
+@@ -1,6 +1,6 @@
+ // Copyright 2018-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ #import <ExpoModulesCore/EXReactLogHandler.h>
+ #import <ExpoModulesCore/EXDefines.h>
+diff --git a/ios/Legacy/Services/EXReactNativeAdapter.h b/ios/Legacy/Services/EXReactNativeAdapter.h
+index 8cc9565767850f1c7fe86ed0a61952fb24fd2ca6..078bcf52a45f08cf66b841e3977ab4852bc49524 100644
+--- a/ios/Legacy/Services/EXReactNativeAdapter.h
++++ b/ios/Legacy/Services/EXReactNativeAdapter.h
+@@ -1,6 +1,6 @@
+ // Copyright 2018-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ #import <ExpoModulesCore/EXUIManager.h>
+ #import <ExpoModulesCore/EXInternalModule.h>
+diff --git a/ios/Legacy/Services/EXReactNativeAdapter.mm b/ios/Legacy/Services/EXReactNativeAdapter.mm
+index e033fa8aaa965906e79fd50571416223e32f7ff8..c4f12be68a695dfb389634471c682adf435947ba 100644
+--- a/ios/Legacy/Services/EXReactNativeAdapter.mm
++++ b/ios/Legacy/Services/EXReactNativeAdapter.mm
+@@ -2,7 +2,7 @@
+ 
+ #import <JavaScriptCore/JavaScriptCore.h>
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ #import <ExpoModulesCore/EXReactNativeAdapter.h>
+ #import <ExpoModulesCore/ExpoFabricViewObjC.h>
+ 
+diff --git a/ios/Legacy/Services/EXReactNativeEventEmitter.h b/ios/Legacy/Services/EXReactNativeEventEmitter.h
+index fdde7a0bf3eb370924f55e6ad2169fc46fd1b8f3..717f5707f08d0e099a97cd500a18b0a8ef55b025 100644
+--- a/ios/Legacy/Services/EXReactNativeEventEmitter.h
++++ b/ios/Legacy/Services/EXReactNativeEventEmitter.h
+@@ -1,6 +1,6 @@
+ // Copyright 2018-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ #import <ExpoModulesCore/EXInternalModule.h>
+ #import <ExpoModulesCore/EXEventEmitterService.h>
+diff --git a/ios/RCTComponentData+Privates.h b/ios/RCTComponentData+Privates.h
+index a03803cd53718cca1b7d51dcd6357497775a86fb..549f20ed1484730deddb019b40408f528d4c48ad 100644
+--- a/ios/RCTComponentData+Privates.h
++++ b/ios/RCTComponentData+Privates.h
+@@ -1,6 +1,6 @@
+ // Copyright 2021-present 650 Industries. All rights reserved.
+ 
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ typedef void (^RCTPropBlockAlias)(id<RCTComponent> _Nonnull view, id _Nullable json);
+ 
+diff --git a/ios/RCTComponentData+Privates.m b/ios/RCTComponentData+Privates.m
+index 563c6e45dae8dacc006449874cadc0d638cc26cf..7cf2545357c8d3d05de1857f628163ceb9ce2240 100644
+--- a/ios/RCTComponentData+Privates.m
++++ b/ios/RCTComponentData+Privates.m
+@@ -1,7 +1,7 @@
+ // Copyright 2021-present 650 Industries. All rights reserved.
+ 
+ #import <ExpoModulesCore/RCTComponentData+Privates.h>
+-#import <React/React-Core-umbrella.h>
++#import <React/React-Core-3e4f9a72-umbrella.h>
+ 
+ @implementation RCTComponentDataSwiftAdapter
+ 

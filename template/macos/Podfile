@@ -1,0 +1,7 @@
+require_relative('./.generate/init')
+
+workspace 'TemplateProject.xcworkspace'
+init! :hermes_enabled => true, :fabric_enabled => true, :new_arch_enabled => true
+
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+use_expo_modules!

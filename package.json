@@ -1,0 +1,8 @@
+{
+    "name": "@liontariai/template-rn-macos-expo-router-nativewind",
+    "version": "1.0.0",
+    "description": "A template for a React Native macOS app using Expo Router and NativeWind.",
+    "repository": "git@github.com:liontariai/template-rn-macos-expo-router-nativewind.git",
+    "author": "liontariai <github@liontari.ai>",
+    "license": "MIT"
+}

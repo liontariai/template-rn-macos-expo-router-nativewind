@@ -1,0 +1,75 @@
+diff --git a/ios/EXSessionTasks/EXSessionCancelableUploadTaskDelegate.h b/ios/EXSessionTasks/EXSessionCancelableUploadTaskDelegate.h
+index c9ea5735eb4ecf9386fdd200a295b1bf55de8964..f794f0f408a014e38029724976388a622d956f62 100644
+--- a/ios/EXSessionTasks/EXSessionCancelableUploadTaskDelegate.h
++++ b/ios/EXSessionTasks/EXSessionCancelableUploadTaskDelegate.h
+@@ -3,6 +3,8 @@
+ #import <ExpoFileSystem/EXSessionUploadTaskDelegate.h>
+ #import <ExpoFileSystem/EXTaskHandlersManager.h>
+ 
++NS_ASSUME_NONNULL_BEGIN
++
+ typedef void (^EXUploadDelegateOnSendCallback)(NSURLSessionUploadTask *task, int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend);
+ 
+ @interface EXSessionCancelableUploadTaskDelegate : EXSessionUploadTaskDelegate
+@@ -14,3 +16,5 @@ typedef void (^EXUploadDelegateOnSendCallback)(NSURLSessionUploadTask *task, int
+                                    uuid:(NSString *)uuid;
+ 
+ @end
++
++NS_ASSUME_NONNULL_END
+diff --git a/ios/EXSessionTasks/EXSessionDownloadTaskDelegate.h b/ios/EXSessionTasks/EXSessionDownloadTaskDelegate.h
+index add56c836173674166feca3f4d851156d7d4d883..b040a4b60dea123d9e8e4d8e0c8a75191cb49615 100644
+--- a/ios/EXSessionTasks/EXSessionDownloadTaskDelegate.h
++++ b/ios/EXSessionTasks/EXSessionDownloadTaskDelegate.h
+@@ -2,6 +2,8 @@
+ 
+ #import <ExpoFileSystem/EXSessionTaskDelegate.h>
+ 
++NS_ASSUME_NONNULL_BEGIN
++
+ @interface EXSessionDownloadTaskDelegate : EXSessionTaskDelegate
+ 
+ - (nonnull instancetype)initWithResolve:(EXPromiseResolveBlock)resolve
+@@ -11,3 +13,4 @@
+ 
+ @end
+ 
++NS_ASSUME_NONNULL_END
+diff --git a/ios/EXSessionTasks/EXSessionResumableDownloadTaskDelegate.h b/ios/EXSessionTasks/EXSessionResumableDownloadTaskDelegate.h
+index da7bf56dc5f193a3dc740753bc6c93b1c5aa1da4..daf4623aa86cbacea5bc1e29d6e0f46d765cc526 100644
+--- a/ios/EXSessionTasks/EXSessionResumableDownloadTaskDelegate.h
++++ b/ios/EXSessionTasks/EXSessionResumableDownloadTaskDelegate.h
+@@ -3,6 +3,8 @@
+ #import <ExpoFileSystem/EXSessionDownloadTaskDelegate.h>
+ #import <ExpoFileSystem/EXTaskHandlersManager.h>
+ 
++NS_ASSUME_NONNULL_BEGIN
++
+ typedef void (^EXDownloadDelegateOnWriteCallback)(NSURLSessionDownloadTask *task, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite);
+ 
+ @interface EXSessionResumableDownloadTaskDelegate : EXSessionDownloadTaskDelegate
+@@ -16,3 +18,5 @@ typedef void (^EXDownloadDelegateOnWriteCallback)(NSURLSessionDownloadTask *task
+                                    uuid:(NSString *)uuid;
+ 
+ @end
++
++NS_ASSUME_NONNULL_END
+diff --git a/ios/EXSessionTasks/EXSessionTaskDelegate.h b/ios/EXSessionTasks/EXSessionTaskDelegate.h
+index 61daeda8a6e11838f4840ce72c225a50dd8ec9e5..1b623170ed344c892dddcd8d8e8702d95f2acd8b 100644
+--- a/ios/EXSessionTasks/EXSessionTaskDelegate.h
++++ b/ios/EXSessionTasks/EXSessionTaskDelegate.h
+@@ -3,6 +3,8 @@
+ #import <Foundation/Foundation.h>
+ #import <ExpoModulesCore/EXDefines.h>
+ 
++NS_ASSUME_NONNULL_BEGIN
++
+ @interface EXSessionTaskDelegate : NSObject
+ 
+ @property (nonatomic, strong, readonly) EXPromiseResolveBlock resolve;
+@@ -30,3 +32,5 @@
+ - (NSDictionary *)parseServerResponse:(NSURLResponse *)response;
+ 
+ @end
++
++NS_ASSUME_NONNULL_END
