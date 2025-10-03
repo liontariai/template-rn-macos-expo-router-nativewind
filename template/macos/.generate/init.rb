@@ -363,6 +363,20 @@ def init!(options, &block)
 
     installer.pods_project.targets.each do |target|
       case target.name
+      when /\AReact-Core(?:\.common)?(-[a-f0-9]+)?-React-Core_privacy\z/
+        # Handle React-Core privacy pods with dynamic hash (e.g., React-Core-3e4f9a72-React-Core_privacy)
+        # Fix the product name
+        target.build_configurations.each do |config|
+          product_name = config.resolve_build_setting('PRODUCT_NAME')
+          config.build_settings['PRODUCT_NAME'] = target.name
+
+          config.build_settings[GCC_PREPROCESSOR_DEFINITIONS] ||= ['$(inherited)']
+          config.build_settings[GCC_PREPROCESSOR_DEFINITIONS] <<
+            '_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION=1'
+          config.build_settings[WARNING_CFLAGS] ||= []
+          config.build_settings[WARNING_CFLAGS] << '-w'
+
+        end
       when /\AReact/, 'RCT-Folly', 'SocketRocket', 'Yoga', 'fmt', 'glog', 'libevent'
         target.build_configurations.each do |config|
           # TODO: Drop `_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION` when
@@ -408,6 +422,26 @@ def init!(options, &block)
     end
 
     apply_config_plugins(project_root, target_platform)
+
+    # Find the resources.sh file for this target (adjust path if multi-target)
+    resources_script_path = "Pods/Target Support Files/Pods-TemplateProject/Pods-TemplateProject-resources.sh"
+    if File.exist?(resources_script_path)
+      # Read the existing script content
+      script_content = File.read(resources_script_path)
+      
+      # Extract the hash from the first occurrence of /React-Core-<hash>/React-Core_privacy.bundle
+      if script_content =~ /\/React-Core-([a-f0-9]+)\/React-Core_privacy\.bundle/
+        hash = Regexp.last_match(1)
+        script_content = script_content.gsub(
+          "/React-Core-#{hash}/React-Core_privacy.bundle",
+          "/React-Core-#{hash}/React-Core-#{hash}-React-Core_privacy.bundle"
+        )
+      end
+      
+      # Write the modified script back
+      File.write(resources_script_path, script_content)
+      puts "Patched #{resources_script_path}"
+    end
 
     Pod::UI.notice(
       "`#{xcodeproj}` was sourced from `react-native-test-app`. " \
