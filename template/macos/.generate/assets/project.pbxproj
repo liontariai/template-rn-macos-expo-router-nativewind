@@ -416,14 +416,14 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = TemplateProjectTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.TemplateProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "./TemplateProject-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "./TemplateProject/TemplateProject-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
