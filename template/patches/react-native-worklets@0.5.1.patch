@@ -1,0 +1,47 @@
+diff --git a/apple/worklets/apple/AnimationFrameQueue.mm b/apple/worklets/apple/AnimationFrameQueue.mm
+index 6d9f32327c4df0c1fed6def3a8920f86188844b8..77e502d8f47fdf3fe333163a3d75766291d29f23 100644
+--- a/apple/worklets/apple/AnimationFrameQueue.mm
++++ b/apple/worklets/apple/AnimationFrameQueue.mm
+@@ -3,8 +3,10 @@
+ #import <worklets/apple/AssertJavaScriptQueue.h>
+ #import <worklets/apple/AssertTurboModuleManagerQueue.h>
+ #import <worklets/apple/SlowAnimations.h>
+-#import <chrono>
+ 
++#import <QuartzCore/QuartzCore.h>
++
++#import <chrono>
+ #import <React/RCTAssert.h>
+ 
+ constexpr auto TIME_SAMPLES_AMOUNT = 4;
+@@ -33,6 +35,7 @@ @implementation AnimationFrameQueue {
+ - (instancetype)init
+ {
+   AssertJavaScriptQueue();
++#if TARGET_OS_IOS  // ADD THIS: Guards iOS-only dynamic frame rate logic
+   if constexpr (worklets::StaticFeatureFlags::getFlag("IOS_DYNAMIC_FRAMERATE_ENABLED")) {
+     bool supportsProMotion = [UIScreen mainScreen].maximumFramesPerSecond > 60;
+     SEL frameCallback = supportsProMotion ? @selector(executeQueueForProMotion:) : @selector(executeQueue:);
+@@ -41,7 +44,9 @@ - (instancetype)init
+   } else {
+     displayLink_ = [WorkletsDisplayLink displayLinkWithTarget:self selector:@selector(executeQueue:)];
+   }
+-
++#else  // ADD THIS: macOS fallback (standard 60fps)
++  displayLink_ = [WorkletsDisplayLink displayLinkWithTarget:self selector:@selector(executeQueue:)];
++#endif // TARGET_OS_IOS
+ #if TARGET_OS_OSX
+   // nothing
+ #else // TARGET_OS_OSX
+@@ -119,8 +124,11 @@ - (void)executeQueueForProMotion:(WorkletsDisplayLink *)displayLink
+   } else {
+     frameRateRange = FrameRateRange::POOR;
+   }
++
+   if (currentFrameRate_.preferred != frameRateRange.preferred) {
++#if TARGET_OS_IOS  // ADD THIS: Guards iOS-only property (macOS skips, stays at default FPS)
+     displayLink_.preferredFrameRateRange = frameRateRange;
++#endif // TARGET_OS_IOS
+     currentFrameRate_ = frameRateRange;
+   }
+ }

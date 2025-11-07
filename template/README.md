@@ -1,15 +1,27 @@
-# react-native-macos-expo-router
+# Latest react-native-macos with expo-router and nativewind!
 
-To install dependencies:
+1.
 
 ```bash
 bun install
 ```
 
-To run:
+2.
 
 ```bash
-bun run index.ts
+bun podinstall
 ```
 
-This project was created using `bun init` in bun v1.1.34. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+3.
+
+```bash
+bun start
+```
+
+4.
+
+```bash
+bun open-xcode
+```
+
+5.  Click Run button in XCode.

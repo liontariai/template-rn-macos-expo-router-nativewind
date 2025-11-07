@@ -242,6 +242,7 @@ def make_project!(xcodeproj, project_root, target_platform, options)
         (rn_version >= v(0, 72, 0) && rn_version < v(0, 72, 5)) ||
         (rn_version >= v(0, 71, 0) && rn_version < v(0, 71, 4)) ||
         (rn_version.positive? && rn_version < v(0, 70, 14))
+
       target.build_configurations.each do |config|
         config.build_settings[GCC_PREPROCESSOR_DEFINITIONS] ||= ['$(inherited)']
         config.build_settings[GCC_PREPROCESSOR_DEFINITIONS] << version_macro
@@ -271,6 +272,8 @@ def make_project!(xcodeproj, project_root, target_platform, options)
 
         config.build_settings[USER_HEADER_SEARCH_PATHS] ||= ['$(inherited)']
         config.build_settings[USER_HEADER_SEARCH_PATHS] << File.join(destination, name)
+
+        config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '13.5'
       end
     when 'TemplateProjectTests'
       target.build_configurations.each do |config|
@@ -361,6 +364,122 @@ def init!(options, &block)
       end
     end
 
+    # Patch ALL umbrella headers to silence nullability warnings during imports
+    umbrella_files = Dir.glob('Pods/Target Support Files/**/*-umbrella.h')
+    umbrella_files.each do |path|
+      original_content = File.read(path)
+  
+      # Skip if we already patched it (look for our exact ignore string)
+      next if original_content.include?('-Wnullability-completeness')
+  
+      lines = original_content.lines
+      new_lines = []
+      in_objc_block = false
+      in_external_import_block = false
+  
+      lines.each do |line|
+        stripped = line.strip
+  
+        # Start of __OBJC__ block → inject push + ignores
+        if stripped == '#ifdef __OBJC__'
+          in_objc_block = true
+          new_lines << line
+          new_lines << "\n"
+          new_lines << "#pragma clang diagnostic push\n"
+          new_lines << "#pragma clang diagnostic ignored \"-Wnullability-completeness\"\n"
+          new_lines << "\n"
+  
+        # End of __OBJC__ block (#else or #endif) → inject pop BEFORE it
+        elsif in_objc_block && (stripped.start_with?('#else') || stripped.start_with?('#endif'))
+          new_lines << "#pragma clang diagnostic pop\n"
+          new_lines << "\n"
+          new_lines << line
+          in_objc_block = false
+  
+          # If this was #else, stay alert for external imports after the #endif
+  
+        # Any #import line
+        elsif stripped.start_with?('#import')
+          # Start external block if we're not in __OBJC__
+          if !in_objc_block && !in_external_import_block
+            in_external_import_block = true
+            new_lines << "#pragma clang diagnostic push\n"
+            new_lines << "#pragma clang diagnostic ignored \"-Wnullability-completeness\"\n"
+            new_lines << "\n"
+          end
+          new_lines << line
+  
+        # Non-import line while in external block → end the block with pop
+        elsif in_external_import_block
+          new_lines << "#pragma clang diagnostic pop\n"
+          new_lines << "\n"
+          in_external_import_block = false
+          new_lines << line
+  
+        # Everything else
+        else
+          new_lines << line
+        end
+      end
+  
+      # Safety: if file ends while still in external imports
+      if in_external_import_block
+        new_lines << "#pragma clang diagnostic pop\n"
+        new_lines << "\n"
+      end
+      if in_objc_block
+        new_lines << "#pragma clang diagnostic pop\n"
+        new_lines << "\n"
+      end
+  
+      File.write(path, new_lines.join)
+      puts "Patched umbrella: #{File.basename(path)} in #{path}"
+    end
+
+   
+    # This hits EVERY Xcode project CocoaPods touches: Pods.xcodeproj + your main app .xcodeproj (on RN macOS this is critical)
+    installer.generated_projects.each do |project|
+      project.targets.each do |target|
+        target.build_configurations.each do |config|
+          config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '13.5'
+
+          # Force $(inherited) first – without this, flags sometimes don't propagate on macOS
+          cflags = config.build_settings['OTHER_CFLAGS'] || []
+          cflags_array = Array(cflags)
+          cflags = ['$(inherited)'] + cflags_array.reject { |f| f == '$(inherited)' }
+          
+          # THE nuclear option that actually kills EVERY nullability warning in Xcode 14–17 (2023–2025)
+          cflags << '-Wno-nullability' unless cflags.include?('-Wno-nullability')
+          
+          # Keep your original ones as backup (they're subsets of the above, but harmless)
+          %w[
+            -Wno-nullability-completeness
+            -Wno-nullability-extension
+            -Wno-inconsistent-missing-destructor-override
+          ].each do |flag|
+            cflags << flag unless cflags.include?(flag)
+          end
+          
+          # If any pod sneaks in -Werror=nullability-... (some do), neuter it
+          %w[
+            nullability-completeness
+            nullability-extension
+            nullability
+          ].each do |w|
+            cflags << "-Wno-error=#{w}" unless cflags.include?("-Wno-error=#{w}")
+          end
+          
+          config.build_settings['OTHER_CFLAGS'] = Array(cflags).uniq
+          
+          # Globally disable "treat warnings as errors" – this is why you see warnings in the editor but errors on build
+          config.build_settings['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'NO'
+          
+          # macOS-specific: some Expo/RN-macOS targets still use the old name
+          config.build_settings['WARNING_CFLAGS'] = config.build_settings['WARNING_CFLAGS'].to_s.gsub('-Werror', '')
+        end
+      end
+    end
+
     installer.pods_project.targets.each do |target|
       case target.name
       when /\AReact-Core(?:\.common)?(-[a-f0-9]+)?-React-Core_privacy\z/
@@ -375,7 +494,6 @@ def init!(options, &block)
             '_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION=1'
           config.build_settings[WARNING_CFLAGS] ||= []
           config.build_settings[WARNING_CFLAGS] << '-w'
-
         end
       when /\AReact/, 'RCT-Folly', 'SocketRocket', 'Yoga', 'fmt', 'glog', 'libevent'
         target.build_configurations.each do |config|

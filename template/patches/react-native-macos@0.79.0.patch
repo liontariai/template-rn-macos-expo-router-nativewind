@@ -1,0 +1,54 @@
+diff --git a/node_modules/react-native-macos/.bun-tag-7e1f28199bebbb52 b/.bun-tag-7e1f28199bebbb52
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/Libraries/Text/TextInput/Singleline/RCTUITextField.h b/Libraries/Text/TextInput/Singleline/RCTUITextField.h
+index 1d0b193c46a96f007eec62b49952bfcc455bb8d7..d735e426a4da81a7d049c968652c0ef69ddd5962 100644
+--- a/Libraries/Text/TextInput/Singleline/RCTUITextField.h
++++ b/Libraries/Text/TextInput/Singleline/RCTUITextField.h
+@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
+ #if TARGET_OS_OSX // [macOS
+ @property (nonatomic, copy, nullable) NSString *text;
+ @property (nonatomic, copy, nullable) NSAttributedString *attributedText;
+-@property (nonatomic, copy) NSDictionary<NSAttributedStringKey, id> *defaultTextAttributes;
++@property (nonatomic, strong, nullable) NSDictionary<NSAttributedStringKey, id> *defaultTextAttributes;
+ @property (nullable, nonatomic, copy) NSDictionary<NSAttributedStringKey, id> *typingAttributes;
+ @property (nonatomic, assign) NSTextAlignment textAlignment;
+ @property (nonatomic, getter=isAutomaticTextReplacementEnabled) BOOL automaticTextReplacementEnabled;
+diff --git a/scripts/codegen/generate-artifacts-executor.js b/scripts/codegen/generate-artifacts-executor.js
+index 8802674535d7e5555a686fe1521350c5a2144261..85a35a1d38fd80b930ff55981fb0c0058595da45 100644
+--- a/scripts/codegen/generate-artifacts-executor.js
++++ b/scripts/codegen/generate-artifacts-executor.js
+@@ -822,14 +822,14 @@ function generateRCTThirdPartyComponents(libraries, outputDir) {
+     .flatMap(library => {
+       const components = componentsInLibraries[library];
+       return components.map(({componentName, className}) => {
+-        return `\t\t\t@"${componentName}": NSClassFromString(@"${className}"), // ${library}`;
++        return `\t\t\tClass ${className}ObjC = NSClassFromString(@"${className}");\n\t\t\tif (${className}ObjC) [components setObject:${className}ObjC forKey:@"${componentName}"];\n\n`;
+       });
+     })
+     .join('\n');
+   // Generate implementation file
+   const templateMM = fs
+     .readFileSync(THIRD_PARTY_COMPONENTS_MM_TEMPLATE_PATH, 'utf8')
+-    .replace(/{thirdPartyComponentsMapping}/, thirdPartyComponentsMapping);
++    .replace(/{thirdPartyComponentsMappingWithSafteyChecks}/, thirdPartyComponentsMapping);
+   const finalPathMM = path.join(
+     outputDir,
+     'RCTThirdPartyComponentsProvider.mm',
+diff --git a/scripts/codegen/templates/RCTThirdPartyComponentsProviderMM.template b/scripts/codegen/templates/RCTThirdPartyComponentsProviderMM.template
+index 4ce510709e337ce783a52413063b2c1ac6fcb29a..47d9fd24e75b605daf0c379625a0fa2ab1d4a4f0 100644
+--- a/scripts/codegen/templates/RCTThirdPartyComponentsProviderMM.template
++++ b/scripts/codegen/templates/RCTThirdPartyComponentsProviderMM.template
+@@ -19,9 +19,9 @@
+   static dispatch_once_t nativeComponentsToken;
+ 
+   dispatch_once(&nativeComponentsToken, ^{
+-    thirdPartyComponents = @{
+-{thirdPartyComponentsMapping}
+-    };
++    NSMutableDictionary<NSString *, Class<RCTComponentViewProtocol>> *components = [NSMutableDictionary dictionary];
++    {thirdPartyComponentsMappingWithSafteyChecks}
++    thirdPartyComponents = [components copy];
+   });
+ 
+   return thirdPartyComponents;
