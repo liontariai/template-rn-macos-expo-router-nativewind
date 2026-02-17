@@ -1,0 +1,13 @@
+diff --git a/ios/Interfaces/ImageLoader/EXImageLoaderInterface.h b/ios/Interfaces/ImageLoader/EXImageLoaderInterface.h
+index 2b241d1b4169536908c4dc9ada025372eaffd3b0..02918cba89fd53cbeb8d337073d97744d850810d 100644
+--- a/ios/Interfaces/ImageLoader/EXImageLoaderInterface.h
++++ b/ios/Interfaces/ImageLoader/EXImageLoaderInterface.h
+@@ -2,7 +2,7 @@
+ 
+ #import <ExpoModulesCore/Platform.h>
+ 
+-typedef void (^EXImageLoaderCompletionBlock)(NSError *error, UIImage *image);
++typedef void (^EXImageLoaderCompletionBlock)(NSError *error, CIImage *image);
+ 
+ @protocol EXImageLoaderInterface <NSObject>
+ 

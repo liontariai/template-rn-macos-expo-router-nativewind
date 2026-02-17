@@ -273,7 +273,7 @@ def make_project!(xcodeproj, project_root, target_platform, options)
         config.build_settings[USER_HEADER_SEARCH_PATHS] ||= ['$(inherited)']
         config.build_settings[USER_HEADER_SEARCH_PATHS] << File.join(destination, name)
 
-        config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '13.5'
+        config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '14.0'
       end
     when 'TemplateProjectTests'
       target.build_configurations.each do |config|
@@ -441,7 +441,7 @@ def init!(options, &block)
     installer.generated_projects.each do |project|
       project.targets.each do |target|
         target.build_configurations.each do |config|
-          config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '13.5'
+          config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '14.0'
 
           # Force $(inherited) first – without this, flags sometimes don't propagate on macOS
           cflags = config.build_settings['OTHER_CFLAGS'] || []

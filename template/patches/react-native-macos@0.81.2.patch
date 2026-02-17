@@ -1,28 +1,28 @@
-diff --git a/node_modules/react-native-macos/.bun-tag-7e1f28199bebbb52 b/.bun-tag-7e1f28199bebbb52
+diff --git a/node_modules/react-native-macos/.bun-tag-8977212d81cbb5a b/.bun-tag-8977212d81cbb5a
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
-diff --git a/Libraries/Text/TextInput/Singleline/RCTUITextField.h b/Libraries/Text/TextInput/Singleline/RCTUITextField.h
-index 1d0b193c46a96f007eec62b49952bfcc455bb8d7..d735e426a4da81a7d049c968652c0ef69ddd5962 100644
---- a/Libraries/Text/TextInput/Singleline/RCTUITextField.h
-+++ b/Libraries/Text/TextInput/Singleline/RCTUITextField.h
-@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
- #if TARGET_OS_OSX // [macOS
- @property (nonatomic, copy, nullable) NSString *text;
- @property (nonatomic, copy, nullable) NSAttributedString *attributedText;
--@property (nonatomic, copy) NSDictionary<NSAttributedStringKey, id> *defaultTextAttributes;
-+@property (nonatomic, strong, nullable) NSDictionary<NSAttributedStringKey, id> *defaultTextAttributes;
- @property (nullable, nonatomic, copy) NSDictionary<NSAttributedStringKey, id> *typingAttributes;
- @property (nonatomic, assign) NSTextAlignment textAlignment;
- @property (nonatomic, getter=isAutomaticTextReplacementEnabled) BOOL automaticTextReplacementEnabled;
-diff --git a/scripts/codegen/generate-artifacts-executor.js b/scripts/codegen/generate-artifacts-executor.js
-index 8802674535d7e5555a686fe1521350c5a2144261..85a35a1d38fd80b930ff55981fb0c0058595da45 100644
---- a/scripts/codegen/generate-artifacts-executor.js
-+++ b/scripts/codegen/generate-artifacts-executor.js
-@@ -822,14 +822,14 @@ function generateRCTThirdPartyComponents(libraries, outputDir) {
+diff --git a/scripts/cocoapods/helpers.rb b/scripts/cocoapods/helpers.rb
+index 61a5575f7c24132e8a1020ff9bbf298f15d0a0c9..16b7c931188b691ed791202e28ba9f3e4922a186 100644
+--- a/scripts/cocoapods/helpers.rb
++++ b/scripts/cocoapods/helpers.rb
+@@ -85,7 +85,7 @@ module Helpers
+         end
+         # [macOS
+         def self.min_macos_version_supported
+-            return '14.0'
++            return '11.0'
+         end
+         # macOS]
+         # [visionOS
+diff --git a/scripts/codegen/generate-artifacts-executor/generateRCTThirdPartyComponents.js b/scripts/codegen/generate-artifacts-executor/generateRCTThirdPartyComponents.js
+index fdd7e95c3f91cb35cd58d86315456e61df97ffd2..5b4ef6b2e04ef70b5a601a363995609cf62b25fc 100644
+--- a/scripts/codegen/generate-artifacts-executor/generateRCTThirdPartyComponents.js
++++ b/scripts/codegen/generate-artifacts-executor/generateRCTThirdPartyComponents.js
+@@ -138,14 +138,14 @@ function generateRCTThirdPartyComponents(
      .flatMap(library => {
        const components = componentsInLibraries[library];
        return components.map(({componentName, className}) => {
--        return `\t\t\t@"${componentName}": NSClassFromString(@"${className}"), // ${library}`;
+-        return `\t\t@"${componentName}": NSClassFromString(@"${className}"), // ${library}`;
 +        return `\t\t\tClass ${className}ObjC = NSClassFromString(@"${className}");\n\t\t\tif (${className}ObjC) [components setObject:${className}ObjC forKey:@"${componentName}"];\n\n`;
        });
      })
