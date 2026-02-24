@@ -5,7 +5,7 @@ Use react-native-macos on version 0.79.0 with Expo 54 and expo-router and native
 ### Step 1
 
 ```bash
-bunx @react-native-community/cli init MyMacosApp --version 0.79.0 --template https://github.com/liontariai/template-rn-macos-expo-router-nativewind
+bunx @react-native-community/cli init MyMacosApp --version 0.81.2 --template https://github.com/liontariai/template-rn-macos-expo-router-nativewind
 ```
 
 ### Step 2
