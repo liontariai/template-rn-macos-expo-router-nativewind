@@ -1,6 +1,6 @@
 # Latest react-native-macos with Expo 54 and expo-router and nativewind!
 
-Use react-native-macos on version 0.79.0 with Expo 54 and expo-router and nativewind.
+Use react-native-macos on version 0.81.2 with Expo 54 and expo-router and nativewind.
 
 ### Step 1
 
