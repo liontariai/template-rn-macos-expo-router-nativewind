@@ -1,6 +1,25 @@
 diff --git a/node_modules/react-native-macos/.bun-tag-8977212d81cbb5a b/.bun-tag-8977212d81cbb5a
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/react-native-macos/.bun-tag-d2fa0be7d69c9843 b/.bun-tag-d2fa0be7d69c9843
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/Libraries/Text/TextInput/RCTBackedTextInputViewProtocol.h b/Libraries/Text/TextInput/RCTBackedTextInputViewProtocol.h
+index a04f96a7d871aa02a21148b45c616b544d49ca62..142e00af897bda692b94fafdc5bea515604023e5 100644
+--- a/Libraries/Text/TextInput/RCTBackedTextInputViewProtocol.h
++++ b/Libraries/Text/TextInput/RCTBackedTextInputViewProtocol.h
+@@ -51,7 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
+ @property (nonatomic, readonly) CGSize contentSize;
+ @property (nonatomic, strong, nullable) NSDictionary<NSAttributedStringKey, id> *defaultTextAttributes;
+ @property (nonatomic, assign) BOOL contextMenuHidden;
++#if !TARGET_OS_OSX // [macOS]
+ @property (nonatomic, assign, getter=isEditable) BOOL editable;
++#else // [macOS
++@property (atomic, assign, getter=isEditable) BOOL editable;
++#endif // macOS]
+ @property (nonatomic, assign) BOOL caretHidden;
+ @property (nonatomic, assign) BOOL enablesReturnKeyAutomatically;
+ #if !TARGET_OS_OSX // [macOS]
 diff --git a/scripts/cocoapods/helpers.rb b/scripts/cocoapods/helpers.rb
 index 61a5575f7c24132e8a1020ff9bbf298f15d0a0c9..16b7c931188b691ed791202e28ba9f3e4922a186 100644
 --- a/scripts/cocoapods/helpers.rb

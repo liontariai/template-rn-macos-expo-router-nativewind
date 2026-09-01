@@ -74,7 +74,7 @@
         "react-dom": "19.0.0",
         "react-native": "0.81.2",
         "react-native-gesture-handler": "~2.30.0",
-        "react-native-macos": "0.81.2",
+        "react-native-macos": "0.81.8",
         "react-native-reanimated": "~4.2.1",
         "react-native-safe-area-context": "^5.6.2",
         "react-native-screens": "~4.16.0",
@@ -97,7 +97,7 @@
     },
     "patchedDependencies": {
         "react-native-worklets@0.5.1": "patches/react-native-worklets@0.5.1.patch",
-        "react-native-macos@0.81.2": "patches/react-native-macos@0.81.2.patch",
+        "react-native-macos@0.81.8": "patches/react-native-macos@0.81.8.patch",
         "expo-modules-core@3.0.29": "patches/expo-modules-core@3.0.29.patch"
     }
 }
